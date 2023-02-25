@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,9 +39,15 @@ public class PeliculaController {
 		String saludo = "Hola Mundo";
 		return new ResponseEntity<>("Hello World", HttpStatus.OK);
 	}
-	@PostMapping
+	@PostMapping("/nuevo")
 	public ResponseEntity<Pelicula> crearPelicula(@RequestBody Pelicula pelicula){
 		return new ResponseEntity<>(peliculaService.create(pelicula), HttpStatus.CREATED);
+	}
+	@PutMapping("/actualizar")
+	public ResponseEntity<Pelicula> actualizarPelicula(@RequestBody Pelicula pelicula){
+		return peliculaService.findById(pelicula.getIdPelicula())
+				.map( peli -> ResponseEntity.ok(peliculaService.update(pelicula)))
+				.orElseGet( () -> ResponseEntity.notFound().build());
 	}
 	
 }
