@@ -37,7 +37,8 @@ public class PeliculaController {
 	@GetMapping("/saludo")
 	public ResponseEntity<String> prueba(){
 		String saludo = "Hola Mundo";
-		return new ResponseEntity<>(saludo, HttpStatus.OK);
+		//return new ResponseEntity<>(saludo, HttpStatus.OK);
+		return ResponseEntity.ok(saludo);
 	}
 	@PostMapping("/nuevo")
 	public ResponseEntity<Pelicula> crearPelicula(@RequestBody Pelicula pelicula){
