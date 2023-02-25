@@ -37,7 +37,7 @@ public class PeliculaController {
 	@GetMapping("/saludo")
 	public ResponseEntity<String> prueba(){
 		String saludo = "Hola Mundo";
-		return new ResponseEntity<>("Hello World", HttpStatus.OK);
+		return new ResponseEntity<>(saludo, HttpStatus.OK);
 	}
 	@PostMapping("/nuevo")
 	public ResponseEntity<Pelicula> crearPelicula(@RequestBody Pelicula pelicula){
@@ -49,5 +49,12 @@ public class PeliculaController {
 				.map( peli -> ResponseEntity.ok(peliculaService.update(pelicula)))
 				.orElseGet( () -> ResponseEntity.notFound().build());
 	}
-	
+	public ResponseEntity<Pelicula> eliminarPelicula(Integer idPelicula){
+		return peliculaService.findById(idPelicula)
+				.map( peli -> {
+					peliculaService.delete(idPelicula);
+					return ResponseEntity.ok(peli);
+				})
+				.orElseGet( () -> ResponseEntity.notFound().build());
+	}
 }
