@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="pelicula")
@@ -14,6 +17,9 @@ public class Pelicula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idPelicula;
+	@NotBlank(message = "El titulo es un campo obligatorio")
+	@NotNull(message = "El titulo es un campo obligatorio")
+	@Size(min = 3, max = 70, message = "El nombre debe ser mayor a tres carácteres")
 	@Column(name = "titulo", nullable = false, length = 70)
 	private String titulo;
 	@Column(name = "year", nullable = false, length = 4)

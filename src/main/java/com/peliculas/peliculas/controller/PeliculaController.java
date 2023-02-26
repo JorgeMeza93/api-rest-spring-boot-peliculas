@@ -2,6 +2,8 @@ package com.peliculas.peliculas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,11 +43,11 @@ public class PeliculaController {
 		return ResponseEntity.ok(saludo);
 	}
 	@PostMapping("/nuevo")
-	public ResponseEntity<Pelicula> crearPelicula(@RequestBody Pelicula pelicula){
+	public ResponseEntity<Pelicula> crearPelicula(@Valid @RequestBody Pelicula pelicula){
 		return new ResponseEntity<>(peliculaService.create(pelicula), HttpStatus.CREATED);
 	}
 	@PutMapping("/actualizar")
-	public ResponseEntity<Pelicula> actualizarPelicula(@RequestBody Pelicula pelicula){
+	public ResponseEntity<Pelicula> actualizarPelicula(@Valid @RequestBody Pelicula pelicula){
 		return peliculaService.findById(pelicula.getIdPelicula())
 				.map( peli -> ResponseEntity.ok(peliculaService.update(pelicula)))
 				.orElseGet( () -> ResponseEntity.notFound().build());
