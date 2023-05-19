@@ -22,17 +22,27 @@ public class Pelicula {
 	@Size(min = 3, max = 70, message = "El nombre debe ser mayor a tres carácteres")
 	@Column(name = "titulo", nullable = false, length = 70)
 	private String titulo;
+	@Size(min = 4, max = 4, message = "Año inválido, revisar")
 	@Column(name = "year", nullable = false, length = 4)
 	private Integer year;
+	@Size(min = 3,  max = 50)
 	@Column(name = "pais", nullable = true, length = 40)
 	private String pais;
-	@Column(name = "duracion", nullable = true, length = 4)
+	@NotNull
+	@NotBlank(message = "Duración es un campo obligatorio")
+	@Column(name = "duracion", nullable = false, length = 4)
 	private Integer duracion;
+	@NotNull(message = "Director es un campo obligatorio")
+	@NotBlank(message = "Director es un campo obligatorio")
+	@Size(min = 3, max = 70)
 	@Column(name = "director", nullable = false, length = 50)
 	private String director;
+	@NotNull(message = "reparto es un campo obligatorio")
+	@NotBlank(message = "reparto es un campo obligatorio")
 	@Column(name="reparto", nullable = false, length = 150)
 	private String reparto;
-	@Column(name="sinopsis", nullable = true, length = 300)
+	@Size(min = 10, max = 500)
+	@Column(name="sinopsis", nullable = true, length = 500)
 	private String sinopsis;
 	public Integer getIdPelicula() {
 		return idPelicula;
